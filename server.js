@@ -50,33 +50,11 @@ app.get('/roll/:num', (req, res) => {
 // 3. I Want THAT One!
 // Task: Create a route for URLs like /collectibles/<index-parameter>.
 
-// Examples: Matches routes such as /collectibles/2 or /collectibles/0.
-
-// Data Array:
-
-// Copy
-//   const collectibles = [
-//     { name: 'shiny ball', price: 5.95 },
-//     { name: 'autographed picture of a dog', price: 10 },
-//     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
-//   ];
 // Validation: If the index does not correspond to an item in the array, respond with “This item is not yet in stock. Check back soon!”
-
-// Response: Should describe the item at the given index, like “So, you want the shiny ball? For 5.95, it can be yours!” Include both the name and price properties.
-
-// Using Query Parameters
-// In this section, you practice using query parameters to pass information from the URL to the server in an Express application.
-
-// Query parameters are added to the end of a URL after a ? and are formatted as key=value pairs. Multiple query parameters can be added to a URL by separating them with &. For example, the following URL has two query parameters, name and age:
-
-// localhost:3000/hello?name=Christy&age=32
-
-// Query parameters are available in the server’s req.query object. We can access the values of the name and age query parameters like so:
 
 // Copy
 // app.get('/hello', (req, res) => {
 //     res.send(`Hello there, ${req.query.name}! I hear you are ${req.query.age} years old!`);
-// });
 
   const collectibles = [
     { name: 'shiny ball', price: 5.95 },
@@ -95,11 +73,7 @@ app.get('/collectibles/:objIdx', (req, res) => {
     else{
 
           res.send(`So, you want the ${collectibles[objIdx].name}? For $ ${collectibles[objIdx].price}, it can be yours!`);
-
-
     }
-
-
 });
 
 
@@ -140,14 +114,14 @@ app.get('/shoes', (req, res) => {
     if (isNaN(minPrice)) {
       return res.send('min-price must be a number');
     }
-    results = results.filter(shoe => shoe.price >= Number(minPrice));
+    results = results.filter(shoe => shoe.price >= min);
   }
 
   if (maxPrice) {
     if (isNaN(maxPrice)) {
       return res.send('max-price must be a number');
     }
-    results = results.filter(shoe => shoe.price <= Number(maxPrice));
+    results = results.filter(shoe => shoe.price <= max);
   }
 
   if (priceType) {
@@ -156,7 +130,7 @@ app.get('/shoes', (req, res) => {
     );
   }
 
-  return res.send(results);
+  return res.json(results);
 });
 
 // Listen for requests on port 3000
